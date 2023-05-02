@@ -27,7 +27,7 @@ class AuctionData(BaseModel):
     claimed: bool
     bin: bool
     highest_bid: int
-    bids: list[Bid] = None  # make it pydantic compatible
+    #bids: list[Bid] = None  # make it pydantic compatible
 
 class AuctionResponse(BaseModel):
     success: bool

@@ -70,8 +70,8 @@ class ItemUtil():
                 'attributes': attributes,
                 'claimed': item_data['claimed'],
                 'bin': isBin,
-                'highest_bid': item_data['highest_bid_amount'],
-                'bids': item_data['bids']
+                'highest_bid': item_data['highest_bid_amount']
+                #'bids': item_data['bids']
             }
             return data
         except Exception as e:
