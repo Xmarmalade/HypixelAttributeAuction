@@ -16,7 +16,7 @@ api = HypixelAPI()
 tasks = Tasks(api_instance=api)
 
 @app.on_event('startup')
-@repeat_every(seconds=5 * 60)
+@repeat_every(seconds=15 * 60)
 async def update_auctions():
     await tasks.scheduled_task()
 
