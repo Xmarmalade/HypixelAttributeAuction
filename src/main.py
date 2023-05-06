@@ -8,6 +8,7 @@ from typing import Union
 from hypixel.api import HypixelAPI
 from utils.tasks import Tasks
 from utils.itemutil import ItemUtil
+from constant.kuudra_items import kuudra_items, kuudra_helmet, kuudra_chestplate, kuudra_leggings, kuudra_boots
 
 from models.response import AuctionData, AuctionResponse, MultipleAuctionResponse, EmptyResponse
 
@@ -65,6 +66,46 @@ async def get_auction_item_id(item_id: str, attribute1: str = '', attribute2: st
     return {
         'success': True,
         'data': auctions
+    }
+
+@app.get('/api/auction/kuudra/lowestbin')
+async def get_kuudra_lowestbin():
+    all_auctions: list[AuctionData] = sorted(tasks.get_auctions(), key=itemgetter('price'))
+    kuudra_lb_data = []
+    for kuudra_item in kuudra_items:
+        for auction in all_auctions:
+            if kuudra_item in auction['item_name'] and auction['bin'] == True:
+                kuudra_lb_data.append({'item_name': kuudra_item, 'data': auction})
+                break
+    return kuudra_lb_data
+
+@app.get('/api/auction/kuudra/armor/{armor_type}')
+async def get_lowest_attribute_armor(armor_type: str, attribute: str = ''):
+    all_auctions: list[AuctionData] = sorted(tasks.get_auctions(), key=itemgetter('price'))
+    items: list[AuctionData] = []
+    if armor_type == 'helmet':
+        for auction in all_auctions:
+            if auction['item_id'] in kuudra_helmet and auction['bin'] == True:
+                if ItemUtil.check_attribute(auction_data=auction, attribute1=attribute):
+                    items.append(auction.copy())
+    elif armor_type == 'chestplate':
+        for auction in all_auctions:
+            if auction['item_id'] in kuudra_chestplate and auction['bin'] == True:
+                if ItemUtil.check_attribute(auction_data=auction, attribute1=attribute):
+                    items.append(auction.copy())
+    elif armor_type == 'leggings':
+        for auction in all_auctions:
+            if auction['item_id'] in kuudra_leggings and auction['bin'] == True:
+                if ItemUtil.check_attribute(auction_data=auction, attribute1=attribute):
+                    items.append(auction.copy())
+    elif armor_type == 'boots':
+        for auction in all_auctions:
+            if auction['item_id'] in kuudra_boots and auction['bin'] == True:
+                if ItemUtil.check_attribute(auction_data=auction, attribute1=attribute):
+                    items.append(auction.copy())
+    return {
+        'success': True,
+        'data': items
     }
 
 @app.get('/api/debug')
