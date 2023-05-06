@@ -77,7 +77,10 @@ async def get_kuudra_lowestbin():
             if kuudra_item in auction['item_name'] and auction['bin'] == True:
                 kuudra_lb_data.append({'item_name': kuudra_item, 'data': auction})
                 break
-    return kuudra_lb_data
+    return {
+        'success': True,
+        'data': kuudra_lb_data
+    }
 
 @app.get('/api/auction/kuudra/armor/{armor_type}')
 async def get_lowest_attribute_armor(armor_type: str, attribute: str = ''):
