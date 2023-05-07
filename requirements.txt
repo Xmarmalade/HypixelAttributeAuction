@@ -1,5 +1,5 @@
 fastapi
-fastapi-util
+fastapi-utils
 nbt
 aiohttp
 uvicorn[standard]
