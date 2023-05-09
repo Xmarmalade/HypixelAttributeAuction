@@ -35,16 +35,20 @@ class LowestBinData(BaseModel):
 
 class AuctionResponse(BaseModel):
     success: bool
+    last_update: int
     data: Optional[AuctionData] = Field(...)
 
 class MultipleAuctionResponse(BaseModel):
     success: bool
+    last_update: int
     data: list[AuctionData] = None
 
 class LowestBinResponse(BaseModel):
     success: bool
+    last_update: int
     data: list[LowestBinData]
 
 class EmptyResponse(BaseModel):
     success: bool
+    last_update: int
     data: list[None] = []

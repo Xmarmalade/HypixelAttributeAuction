@@ -51,6 +51,7 @@ async def get_all_auctions() -> MultipleAuctionResponse:
     res = tasks.get_auctions()
     return {
         'success': True,
+        'last_update': Tasks.get_update_time(),
         'data': res
     }
 
@@ -65,6 +66,7 @@ async def get_auction_item_id(item_id: str, attribute1: str = '', attribute2: st
     auctions = sorted(auctions, key=itemgetter('price'))
     return {
         'success': True,
+        'last_update': Tasks.get_update_time(),
         'data': auctions
     }
 
@@ -79,6 +81,7 @@ async def get_kuudra_lowestbin():
                 break
     return {
         'success': True,
+        'last_update': Tasks.get_update_time(),
         'data': kuudra_lb_data
     }
 
@@ -108,5 +111,6 @@ async def get_lowest_attribute_armor(armor_type: str, attribute: str = ''):
                     items.append(auction.copy())
     return {
         'success': True,
+        'last_update': Tasks.get_update_time(),
         'data': items
     }

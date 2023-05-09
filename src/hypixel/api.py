@@ -8,6 +8,7 @@ from typing import Union
 from utils.itemutil import ItemUtil
 from utils.statushandle import handle_status_code
 from models.response import AuctionResponse, MultipleAuctionResponse, EmptyResponse, AuctionData
+from utils.tasks import Tasks
 
 class HypixelAPI():
     def __init__(self) -> None:
@@ -29,8 +30,10 @@ class HypixelAPI():
                     return data
                 item_data = json['auctions'][0]
                 organized_item_data = ItemUtil.organize_item_data(item_data)
+                last_update = Tasks.get_update_time()
                 data: AuctionResponse = {
                     'success': True,
+                    'last_update': last_update,
                     'data': organized_item_data
                 }
                 return data
@@ -52,14 +55,17 @@ class HypixelAPI():
                         continue
                     item_data = ItemUtil.organize_item_data(i)
                     auction_list.append(item_data.copy())
+                last_update = Tasks.get_update_time()
                 if auction_list == []:
                     data: EmptyResponse = {
                         'success': True,
+                        'last_update': last_update,
                         'data': []
                     }
                 else:
                     data: MultipleAuctionResponse = {
                         'success': True,
+                        'last_update': last_update,
                         'data': auction_list
                     }
                 return data
@@ -81,14 +87,17 @@ class HypixelAPI():
                         continue
                     item_data = ItemUtil.organize_item_data(i)
                     auction_list.append(item_data.copy())
+                last_update = Tasks.get_update_time()
                 if auction_list == []:
                     data: EmptyResponse = {
                         'success': True,
+                        'last_update': last_update,
                         'data': []
                     }
                 else:
                     data: MultipleAuctionResponse = {
                         'success': True,
+                        'last_update': last_update,
                         'data': auction_list
                     }
                 return data
