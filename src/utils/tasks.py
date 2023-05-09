@@ -11,7 +11,7 @@ class Tasks():
 
     async def scheduled_task(self):
         self.auctions = await self.api.get_all_auctions()
-        Timeholder.update_time = int(time.time())
+        Timeholder.update_time(int(time.time()))
 
     def get_auctions(self):
         return self.auctions
