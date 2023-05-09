@@ -1,6 +1,6 @@
 import time
 from hypixel.api import HypixelAPI
-from timeholder import Timeholder
+from .timeholder import Timeholder
 
 class Tasks():
     update_time = 0
