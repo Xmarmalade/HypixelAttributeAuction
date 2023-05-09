@@ -1,5 +1,6 @@
 import time
 from hypixel.api import HypixelAPI
+from timeholder import Timeholder
 
 class Tasks():
     update_time = 0
@@ -9,13 +10,9 @@ class Tasks():
         self.auctions = []
 
     async def scheduled_task(self):
-        """"""
         self.auctions = await self.api.get_all_auctions()
-        Tasks.update_time = int(time.time())
+        Timeholder.update_time = int(time.time())
 
     def get_auctions(self):
         return self.auctions
     
-    @classmethod
-    def get_update_time(cls):
-        return cls.update_time

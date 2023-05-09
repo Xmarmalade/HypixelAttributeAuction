@@ -8,7 +8,7 @@ from typing import Union
 from utils.itemutil import ItemUtil
 from utils.statushandle import handle_status_code
 from models.response import AuctionResponse, MultipleAuctionResponse, EmptyResponse, AuctionData
-from utils.tasks import Tasks
+from utils.timeholder import Timeholder
 
 class HypixelAPI():
     def __init__(self) -> None:
@@ -30,7 +30,7 @@ class HypixelAPI():
                     return data
                 item_data = json['auctions'][0]
                 organized_item_data = ItemUtil.organize_item_data(item_data)
-                last_update = Tasks.get_update_time()
+                last_update = Timeholder.get_time()
                 data: AuctionResponse = {
                     'success': True,
                     'last_update': last_update,
@@ -55,7 +55,7 @@ class HypixelAPI():
                         continue
                     item_data = ItemUtil.organize_item_data(i)
                     auction_list.append(item_data.copy())
-                last_update = Tasks.get_update_time()
+                last_update = Timeholder.get_time()
                 if auction_list == []:
                     data: EmptyResponse = {
                         'success': True,
@@ -87,7 +87,7 @@ class HypixelAPI():
                         continue
                     item_data = ItemUtil.organize_item_data(i)
                     auction_list.append(item_data.copy())
-                last_update = Tasks.get_update_time()
+                last_update = Timeholder.get_time()
                 if auction_list == []:
                     data: EmptyResponse = {
                         'success': True,
