@@ -29,6 +29,10 @@ class AuctionData(BaseModel):
     highest_bid: int
     #bids: list[Bid] = None  # make it pydantic compatible
 
+class LowestBinData(BaseModel):
+    item_name: str
+    data: AuctionData
+
 class AuctionResponse(BaseModel):
     success: bool
     data: Optional[AuctionData] = Field(...)
@@ -36,6 +40,10 @@ class AuctionResponse(BaseModel):
 class MultipleAuctionResponse(BaseModel):
     success: bool
     data: list[AuctionData] = None
+
+class LowestBinResponse(BaseModel):
+    success: bool
+    data: list[LowestBinData]
 
 class EmptyResponse(BaseModel):
     success: bool

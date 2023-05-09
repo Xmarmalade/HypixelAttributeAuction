@@ -119,15 +119,3 @@ class HypixelAPI():
                     auctions.append(dict(item_data).copy())
                     total_size += sys.getsizeof(item_data)
         return auctions
-    
-    async def debug_func(self):
-        auctions = []
-        count = 0
-        async with self.session.get(url='/skyblock/auctions', params={**self._base_params, **{'page': 0}}) as r:
-            data = await r.json()
-            total_page = data['totalPages']
-            for i in data['auctions']:
-                count += 1
-                item_data = ItemUtil.organize_item_data(i, True)
-                auctions.append(dict(item_data).copy())
-            return auctions

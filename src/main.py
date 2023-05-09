@@ -10,7 +10,7 @@ from utils.tasks import Tasks
 from utils.itemutil import ItemUtil
 from constant.kuudra_items import kuudra_items, kuudra_helmet, kuudra_chestplate, kuudra_leggings, kuudra_boots
 
-from models.response import AuctionData, AuctionResponse, MultipleAuctionResponse, EmptyResponse
+from models.response import AuctionData, LowestBinData, AuctionResponse, MultipleAuctionResponse, LowestBinResponse, EmptyResponse
 
 app = FastAPI()
 api = HypixelAPI()
@@ -68,10 +68,10 @@ async def get_auction_item_id(item_id: str, attribute1: str = '', attribute2: st
         'data': auctions
     }
 
-@app.get('/api/auction/kuudra/lowestbin')
+@app.get('/api/auction/kuudra/lowestbin', response_model=Union[LowestBinResponse, EmptyResponse])
 async def get_kuudra_lowestbin():
     all_auctions: list[AuctionData] = sorted(tasks.get_auctions(), key=itemgetter('price'))
-    kuudra_lb_data = []
+    kuudra_lb_data: list[LowestBinData] = []
     for kuudra_item in kuudra_items:
         for auction in all_auctions:
             if kuudra_item in auction['item_name'] and auction['bin'] == True:
@@ -82,7 +82,7 @@ async def get_kuudra_lowestbin():
         'data': kuudra_lb_data
     }
 
-@app.get('/api/auction/kuudra/armor/{armor_type}')
+@app.get('/api/auction/kuudra/armor/{armor_type}', response_model=Union[MultipleAuctionResponse, EmptyResponse])
 async def get_lowest_attribute_armor(armor_type: str, attribute: str = ''):
     all_auctions: list[AuctionData] = sorted(tasks.get_auctions(), key=itemgetter('price'))
     items: list[AuctionData] = []
@@ -110,8 +110,3 @@ async def get_lowest_attribute_armor(armor_type: str, attribute: str = ''):
         'success': True,
         'data': items
     }
-
-@app.get('/api/debug')
-async def debug_endpoint():
-    res = await api.debug_func()
-    return {'data': res}
