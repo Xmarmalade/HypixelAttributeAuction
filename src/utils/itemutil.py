@@ -111,7 +111,3 @@ class ItemUtil():
             return False
         else:
             return True
-
-    @staticmethod
-    def sort_auction(auction_list: list[AuctionData]):
-        """"""
