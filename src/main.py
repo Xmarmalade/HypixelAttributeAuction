@@ -57,12 +57,12 @@ async def get_all_auctions() -> MultipleAuctionResponse:
     }
 
 @app.get('/api/auction/item_id/{item_id}', response_model=Union[MultipleAuctionResponse, EmptyResponse])
-async def get_auction_item_id(item_id: str, attribute1: str = '', attribute2: str = ''):
+async def get_auction_item_id(item_id: str, attribute1: str = '', attribute2: str = '', attrlevel1: str = '', attrlevel2: str = ''):
     all_auctions = tasks.get_auctions()
     auctions: list[AuctionData] = []
     for auction in all_auctions:
         if auction['item_id'] == item_id:
-            if ItemUtil.check_attribute(auction_data=auction, attribute1=attribute1, attribute2=attribute2):
+            if ItemUtil.check_attribute(auction_data=auction, attribute1=attribute1, attribute2=attribute2, attrlevel1=attrlevel1, attrlevel2=attrlevel2):
                 auctions.append(auction.copy())
     auctions = sorted(auctions, key=itemgetter('price'))
     return {

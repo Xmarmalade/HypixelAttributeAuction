@@ -93,15 +93,19 @@ class ItemUtil():
             return tag.value
         
     @staticmethod
-    def check_attribute(auction_data, attribute1: str = '', attribute2: str = ''):
+    def check_attribute(auction_data, attribute1: str = '', attribute2: str = '', attrlevel1: str = '', attrlevel2: str = ''):
         attribute_flag1: bool = None
         attribute_flag2: bool = None
+        if attrlevel1 == '': attrlevel1 = '1'
+        if attrlevel2 == '': attrlevel2 = '1'
         if attribute1 != '': attribute_flag1 = False
         if attribute2 != '': attribute_flag2 = False
+        print(attribute1, attribute2, attrlevel1, attrlevel2)
         for attribute in auction_data['attributes']:
-            if attribute1 != '' and attribute['name'] == attribute1:
+            if (attribute1 != '' and attribute['name'] == attribute1) and (attribute['value'] >= int(attrlevel1)):
+                print("attr1")
                 attribute_flag1 = True
-            if attribute2 != '' and attribute['name'] == attribute2:
+            if (attribute2 != '' and attribute['name'] == attribute2) and (attribute['value'] >= int(attrlevel2)):
                 attribute_flag2 = True
         if attribute_flag1 == False or attribute_flag2 == False:
             return False
