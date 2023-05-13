@@ -1,9 +1,9 @@
 import aiohttp
 import os
 import time
-import sys
 import traceback
 from typing import Union
+from tqdm import tqdm
 
 from utils.itemutil import ItemUtil
 from utils.statushandle import handle_status_code
@@ -109,16 +109,16 @@ class HypixelAPI():
     async def get_all_auctions(self) -> list[AuctionData]:
         total_page = 0
         auctions = []
-        total_size = 0
         async with self.session.get(url='/skyblock/auctions', params={**self._base_params, **{'page': 0}}) as r:
             data = await r.json()
             total_page = data['totalPages']
             for i in data['auctions']:
                 item_data = ItemUtil.organize_item_data(i, True)
                 auctions.append(dict(item_data).copy())
-                total_size += sys.getsizeof(item_data)
+        bar = tqdm(total=total_page)
+        bar.set_description('Fetching auction data...')
         for page_num in range(total_page):
-            print('page: ', page_num)
+            bar.update(1)
             if page_num == 0:
                 continue
             async with self.session.get(url='/skyblock/auctions', params={**self._base_params, **{'page': page_num}}) as r:
@@ -126,5 +126,4 @@ class HypixelAPI():
                 for i in data['auctions']:
                     item_data = ItemUtil.organize_item_data(i, True)
                     auctions.append(dict(item_data).copy())
-                    total_size += sys.getsizeof(item_data)
         return auctions

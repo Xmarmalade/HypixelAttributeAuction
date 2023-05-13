@@ -100,10 +100,8 @@ class ItemUtil():
         if attrlevel2 == '': attrlevel2 = '1'
         if attribute1 != '': attribute_flag1 = False
         if attribute2 != '': attribute_flag2 = False
-        print(attribute1, attribute2, attrlevel1, attrlevel2)
         for attribute in auction_data['attributes']:
             if (attribute1 != '' and attribute['name'] == attribute1) and (attribute['value'] >= int(attrlevel1)):
-                print("attr1")
                 attribute_flag1 = True
             if (attribute2 != '' and attribute['name'] == attribute2) and (attribute['value'] >= int(attrlevel2)):
                 attribute_flag2 = True

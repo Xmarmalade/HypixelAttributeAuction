@@ -10,6 +10,7 @@ uvicorn = {extras = ["standard"], version = "*"}
 nbt = "*"
 python-nbt = "*"
 fastapi-utils = "*"
+tqdm = "*"
 
 [dev-packages]
 
