@@ -36,7 +36,7 @@ class HypixelAPI():
                     'data': organized_item_data
                 }
                 return data
-            except Exception as e:
+            except Exception:
                 print('data: ')
                 print(json)
                 traceback.print_exc()
@@ -68,7 +68,7 @@ class HypixelAPI():
                         'data': auction_list
                     }
                 return data
-            except Exception as e:
+            except Exception:
                 print('data: ')
                 print(json)
                 traceback.print_exc()
@@ -100,7 +100,7 @@ class HypixelAPI():
                         'data': auction_list
                     }
                 return data
-            except Exception as e:
+            except Exception:
                 print('data: ')
                 print(json)
                 traceback.print_exc()
