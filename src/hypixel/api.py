@@ -12,7 +12,7 @@ from utils.timeholder import Timeholder
 class HypixelAPI():
     def __init__(self) -> None:
         self.session = aiohttp.ClientSession('https://api.hypixel.net')
-        self._api_key = os.environ['HYPIXEL_API_KEY']
+        self._api_key = "0c229ee8-06a2-4ebd-91e3-46502fb306f2"#os.environ['HYPIXEL_API_KEY']
         self._base_params = {'key': self._api_key}
 
     async def get_auction_by_auction_id(self, auction_id: str) -> AuctionResponse:

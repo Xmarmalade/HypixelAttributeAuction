@@ -4,14 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-aiohttp = "*"
-fastapi = "*"
-uvicorn = {extras = ["standard"], version = "*"}
+aiohttp = "3.9.5"
+fastapi = "0.95.1"
+uvicorn = {extras = ["standard"], version = "0.22.0"}
 nbt = "*"
 python-nbt = "*"
-fastapi-utils = "*"
+fastapi-utils = "0.2.1"
+typing-inspect = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.10"
+python_version = "3.12"

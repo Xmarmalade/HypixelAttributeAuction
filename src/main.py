@@ -5,6 +5,8 @@ from operator import itemgetter
 
 from typing import Union
 
+import uvicorn
+
 from hypixel.api import HypixelAPI
 from utils.tasks import Tasks
 from utils.itemutil import ItemUtil
@@ -115,3 +117,6 @@ async def get_lowest_attribute_armor(armor_type: str, attribute: str = ''):
         'last_update': Timeholder.get_time(),
         'data': items
     }
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
